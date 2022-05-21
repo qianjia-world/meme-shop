@@ -75,13 +75,11 @@ export default {
         this.nowgood = { ...item }
       }
       this.isNew = isnew
-      console.log(this.isNew, this.nowgood)
       const open = this.$refs.editModal
       open.showModal()
     },
     updateGoods (good) {
       this.nowgood = good
-      console.log(this.nowgood)
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`
       let httpMethod = 'post'
       // 上下是在調整api，預設是新增，用上方那個；如果不是新增而是調整，改用下方的
@@ -93,7 +91,6 @@ export default {
 
       this.$http[httpMethod](api, { data: this.nowgood })
         .then((res) => {
-          console.log(res)
           open.hideModal()
           if (res.data.success) {
             this.getGoods()
@@ -101,7 +98,7 @@ export default {
         })
     },
     openDeleteModal (item) {
-      this.tempProduct = { ...item }
+      this.nowgood = { ...item }
       const delComponent = this.$refs.delModal
       delComponent.showModal()
     },
