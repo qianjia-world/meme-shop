@@ -17,7 +17,7 @@
     <tr v-for="item in coupons" :key="item.id">
       <td>{{ item.title }}</td>
       <td>{{ item.percent }}</td>
-      <td>{{ new Date(item.due_date) }}</td>
+      <td>{{ changeText(item.due_date) }}</td>
       <td>
         <span class="text-success" v-if="item.is_enabled">啟用</span>
         <span class="text-muted" v-else>未啟用</span>
@@ -33,14 +33,14 @@
 </table>
 </main>
 <GoodsPagination :pages="pagination"  @emit-pages="getCoupons"></GoodsPagination>
-<EditModal :goods="nowCoupon" ref="editModal" @emit-update="updateGoods" ></EditModal>
+<EditModal :goods="nowCoupon" ref="editModal" @emit-update="updateGoods" :isNew="isNew" ></EditModal>
 <DeleteModal :item="nowCoupon" ref="delModal" @emit-del="DeleteGood" ></DeleteModal>
 </template>
 
 <script>
-import GoodsPagination from '../components/Admin/GoodsPagination.vue'
-import EditModal from '../components/Admin/EditCouponsModal.vue'
-import DeleteModal from '../components/Admin/DeleteModal.vue'
+import GoodsPagination from '../../components/Admin/GoodsPagination.vue'
+import EditModal from '../../components/Admin/EditCouponsModal.vue'
+import DeleteModal from '../../components/Admin/DeleteModal.vue'
 export default {
   data () {
     return {
@@ -57,8 +57,17 @@ export default {
         if (res.data.success) {
           this.coupons = res.data.coupons
           this.pagination = res.data.pagination
+          // 這段要讓unix轉字串，方便之後顯示
         }
       })
+    },
+    changeText (item) {
+      const date = new Date(item * 1000)
+      item = date.getFullYear() + '-' + this.add0((date.getMonth() + 1)) + '-' + this.add0(date.getDate())
+      return item
+    },
+    add0 (m) {
+      return m < 10 ? '0' + m : m
     },
     openModal (isnew, item) {
       if (isnew) {
@@ -71,8 +80,8 @@ export default {
       open.showModal()
     },
     updateGoods (coupon) {
-      this.nowCoupon = coupon
-      this.nowCoupon.due_date = new Date(this.nowCoupon.due_date).getTime()
+      this.nowCoupon = { ...coupon }
+      this.nowCoupon.due_date = new Date(this.nowCoupon.due_date).getTime() / 1000
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`
       let httpMethod = 'post'
       // 上下是在調整api，預設是新增，用上方那個；如果不是新增而是調整，改用下方的
@@ -81,14 +90,12 @@ export default {
         httpMethod = 'put'
       }
       const open = this.$refs.editModal
-
       this.$http[httpMethod](api, { data: this.nowCoupon })
         .then((res) => {
-          console.log(res)
           open.hideModal()
           if (res.data.success) {
-            this.getCoupons()
             this.nowCoupon = {}
+            this.getCoupons()
           }
         })
     },
@@ -104,6 +111,7 @@ export default {
         delComponent.hideModal()
         if (res.data.success) {
           this.getCoupons()
+          this.nowCoupon = {}
         }
       })
     }

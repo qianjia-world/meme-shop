@@ -74,6 +74,10 @@ export default {
     goods: {
       type: Object,
       default () { return {} }
+    },
+    isNew: {
+      type: Boolean,
+      default () { return false }
     }
   },
   data () {
@@ -85,13 +89,21 @@ export default {
   },
   watch: {
     goods () {
-      this.good = this.goods
-      this.date = new Date(this.good.due_date)
+      if (this.isNew === true) {
+        this.good = {}
+      }
+      if (this.isNew === false) {
+        this.good = { ...this.goods }
+        const date = new Date(this.goods.due_date * 1000)
+        this.good.due_date = date.getFullYear() + '-' + this.add0((date.getMonth() + 1)) + '-' + this.add0(date.getDate())
+        console.log(this.good.due_date)
+      }
     }
   },
   methods: {
-    // changeDate () {
-    // }
+    add0 (m) {
+      return m < 10 ? '0' + m : m
+    }
   }
 }
 </script>

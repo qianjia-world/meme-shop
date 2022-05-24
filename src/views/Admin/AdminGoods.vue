@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import GoodsPagination from '../components/Admin/GoodsPagination.vue'
-import EditModal from '../components/Admin/EditModal.vue'
-import DeleteModal from '../components/Admin/DeleteModal.vue'
+import GoodsPagination from '../../components/Admin/GoodsPagination.vue'
+import EditModal from '../../components/Admin/EditModal.vue'
+import DeleteModal from '../../components/Admin/DeleteModal.vue'
 export default {
   data () {
     return {

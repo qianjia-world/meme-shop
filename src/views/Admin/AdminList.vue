@@ -1,12 +1,10 @@
 <template>
 <AdminHeader></AdminHeader>
 <router-view/>
-<AdminFooter></AdminFooter>
 </template>
 
 <script>
-import AdminHeader from '../components/Admin/AdminHeader.vue'
-import AdminFooter from '../components/Admin/AdminFooter.vue'
+import AdminHeader from '../../components/Admin/AdminHeader.vue'
 export default {
   created () {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)memeshop\s*=\s*([^;]*).*$)|^.*$/, '$1')
@@ -22,8 +20,7 @@ export default {
     })
   },
   components: {
-    AdminHeader,
-    AdminFooter
+    AdminHeader
   }
 }
 </script>

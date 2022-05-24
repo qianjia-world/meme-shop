@@ -52,6 +52,7 @@ export default {
         const expired = new Date(res.data.expired)
         document.cookie = `memeshop=${token}; expires=${expired}`
         this.$router.push('/admin/goods')
+        // 將token跟到期日加入cookie，路由連到指定頁面
       })
     }
   }
