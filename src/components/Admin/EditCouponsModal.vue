@@ -89,9 +89,6 @@ export default {
   },
   watch: {
     goods () {
-      if (this.isNew === true) {
-        this.good = {}
-      }
       if (this.isNew === false) {
         this.good = { ...this.goods }
         const date = new Date(this.goods.due_date * 1000)

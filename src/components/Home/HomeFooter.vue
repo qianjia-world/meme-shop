@@ -5,10 +5,10 @@
       <router-link to="/">工程師迷因</router-link>
     </li>
     <li>
-      <router-link to="/">Programming X meme</router-link>
+      <router-link to="/">Programming X Meme</router-link>
     </li>
     <li>
-      <router-link to="/">關於我</router-link>
+      <router-link to="/login">小房間</router-link>
     </li>
   </ul>
 </footer>
