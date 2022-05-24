@@ -7,37 +7,37 @@ const routes = [
     children: [
       {
         path: '/',
-        component: () => import('../views/ProductView.vue')
+        component: () => import('../views/Home/ProductView.vue')
       },
       {
         path: 'aboutus',
-        component: () => import('../views/AboutUs.vue')
+        component: () => import('../views/Home/AboutUs.vue')
       }
     ]
   },
   {
     path: '/login',
-    component: () => import('../views/LoginView.vue')
+    component: () => import('../views/Admin/LoginView.vue')
   },
   {
     path: '/admin',
-    component: () => import('../views/AdminList.vue'),
+    component: () => import('../views/Admin/AdminList.vue'),
     children: [
       {
         path: 'goods',
-        component: () => import('../views/AdminGoods.vue')
+        component: () => import('../views/Admin/AdminGoods.vue')
       },
       {
         path: 'orders',
-        component: () => import('../views/AdminOrders.vue')
+        component: () => import('../views/Admin/AdminOrders.vue')
       },
       {
         path: 'coupons',
-        component: () => import('../views/AdminCoupons.vue')
+        component: () => import('../views/Admin/AdminCoupons.vue')
       },
       {
         path: 'Articles',
-        component: () => import('../views/AdminArticles.vue')
+        component: () => import('../views/Admin/AdminArticles.vue')
       }
     ]
   }
