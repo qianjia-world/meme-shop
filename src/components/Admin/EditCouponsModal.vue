@@ -75,11 +75,9 @@ export default {
        spilt會拆成陣列AAATBBB=>[AAA,BBB] */
       this.due_date = dateAndTime[0]
       // 解構賦值很帥，但還是先寫直覺的吧
-      console.log('2', this.tempCoupon)
     },
     due_date () {
       this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000)
-      console.log('3', this.tempCoupon)
     }
   },
   mixins: [modalMixin]

@@ -69,7 +69,6 @@ export default {
         }
       } else {
         this.tempCoupon = { ...item }
-        console.log('1', this.tempCoupon)
       }
       this.$refs.couponModal.showModal()
     },
@@ -85,8 +84,6 @@ export default {
       })
     },
     updateCoupon (tempCoupon) {
-      console.log('4', this.tempCoupon)
-      console.log('5', tempCoupon)
       if (this.isNew) {
         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`
         this.$http.post(url, { data: tempCoupon }).then((response) => {
@@ -104,7 +101,6 @@ export default {
     delCoupon () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`
       this.$http.delete(url).then((response) => {
-        console.log(response, this.tempCoupon)
         const delComponent = this.$refs.delModal
         delComponent.hideModal()
         this.getCoupons()
