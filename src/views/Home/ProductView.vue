@@ -40,7 +40,6 @@ export default {
     getProducts (page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products?page=${page}`
       this.$http.get(api).then((res) => {
-        console.log(res)
         this.products = res.data.products
         this.pagination = res.data.pagination
       })

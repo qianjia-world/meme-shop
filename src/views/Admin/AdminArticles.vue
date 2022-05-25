@@ -75,8 +75,7 @@ export default {
       open.showModal()
     },
     updateGoods (coupon) {
-      this.nowArticle = coupon
-      this.nowArticle.due_date = new Date(this.nowArticle.due_date).getTime()
+      this.nowArticle = { ...coupon }
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article`
       let httpMethod = 'post'
       // 上下是在調整api，預設是新增，用上方那個；如果不是新增而是調整，改用下方的
@@ -88,6 +87,7 @@ export default {
 
       this.$http[httpMethod](api, { data: this.nowArticle })
         .then((res) => {
+          console.log(this.nowArticle)
           console.log(res)
           open.hideModal()
           if (res.data.success) {
@@ -111,7 +111,6 @@ export default {
         }
       })
     }
-
   },
   created () {
     this.getArticles()
