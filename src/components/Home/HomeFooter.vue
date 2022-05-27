@@ -19,8 +19,7 @@
   display: flex;
   justify-content: center;
   background-color: antiquewhite;
-  padding: 20px 0px;
-
+  padding: 22px 0px;
   li{
     margin: 0 20px;
   }

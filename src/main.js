@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { currency, date } from './methods/filters'
+import 'bootstrap-icons/font/bootstrap-icons.scss'
 
 import App from './App.vue'
 import router from './router'
