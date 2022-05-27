@@ -16,7 +16,7 @@ ref="modal">
             <div class="mb-3">
               <label for="image" class="form-label">輸入圖片網址</label>
               <input type="text" class="form-control" id="image"
-                      placeholder="請輸入圖片連結" v-model="good.image">
+                      placeholder="請輸入圖片連結" v-model="temparticle.image">
             </div>
             <div class="mb-3">
               <label for="customFile" class="form-label">或 上傳圖片
@@ -28,7 +28,11 @@ ref="modal">
             <div class="mt-5">
               <div class="mb-3">
                 <label for="create_at" class="form-label">新增日期</label>
-                <input type="date" class="form-control" id="create_at" placeholder="請輸入新增日期" v-model="good.create_at">
+                <input type="date" class="form-control" id="create_at" placeholder="請輸入新增日期" v-model="create_at">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">文章描述</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="temparticle.description"></textarea>
               </div>
             </div>
           </div>
@@ -36,26 +40,26 @@ ref="modal">
             <div class="mb-3">
               <label for="title" class="form-label">標題</label>
               <input type="text" class="form-control" id="title"
-                      placeholder="請輸入標題" v-model="good.title">
+                      placeholder="請輸入標題" v-model="temparticle.title">
             </div>
 
             <div class="row gx-2">
               <div class="mb-3 col-md-6">
                 <label for="tag" class="form-label">關鍵字</label>
                 <input type="text" class="form-control" id="tag"
-                        placeholder="請輸入關鍵字" v-model="good.tag">
+                        placeholder="請輸入關鍵字" v-model="temparticle.tag">
               </div>
               <div class="mb-3 col-md-6">
                 <label for="author" class="form-label">作者</label>
                 <input type="text" class="form-control" id="author"
-                placeholder="請輸入作者" v-model="good.author">
+                placeholder="請輸入作者" v-model="temparticle.author">
               </div>
             </div>
 
             <div class="row gx-2">
-              <div class="mb-3 ">
-                <label for="content" class="form-label">文章內容</label>
-                <input type="textarea" class="form-control" id="content" placeholder="請輸入文章內容" v-model="good.content">
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">文章內容</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="18" v-model="temparticle.content"></textarea>
               </div>
             </div>
 
@@ -63,10 +67,10 @@ ref="modal">
 
             <div class="mb-3">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox"
-                        :true-value="1"
-                        :false-value="0"
-                        id="is_enabled" v-model="good.isPublic">
+                <input class="form-check-input" type="checkbox" checked="checked"
+                        :true-value=true
+                        :false-value=false
+                        id="is_enabled" v-model="temparticle.isPublic">
                 <label class="form-check-label" for="isPublic">
                   是否公開
                 </label>
@@ -79,7 +83,7 @@ ref="modal">
         <button type="button" class="btn btn-outline-secondary"
                 data-bs-dismiss="modal">取消
         </button>
-        <button type="button" class="btn btn-primary" @click="$emit('emit-update', good )">確認</button>
+        <button type="button" class="btn btn-primary" @click="$emit('emit-update', temparticle )">確認</button>
       </div>
     </div>
   </div>
@@ -87,24 +91,25 @@ ref="modal">
 </template>
 
 <script>
-import ModalMixin from '@/Mixins/modalmixin'
+import modalMixin from '../../Mixins/modalmixin'
 export default {
-  mixins: [ModalMixin],
-  props: {
-    goods: {
-      type: Object,
-      default () { return {} }
-    }
-  },
   data () {
     return {
-      modal: {},
-      good: {}
+      temparticle: {},
+      create_at: ''
     }
   },
+  props: {
+    article: {}
+  },
   watch: {
-    goods () {
-      this.good = this.goods
+    article () {
+      this.temparticle = this.article
+      const dateAndTime = new Date(this.temparticle.create_at * 1000).toISOString().split('T')
+      this.create_at = dateAndTime[0]
+    },
+    create_at () {
+      this.temparticle.create_at = Math.floor(new Date(this.create_at) / 1000)
     }
   },
   methods: {
@@ -115,11 +120,11 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`
       this.$http.post(api, formData).then((res) => {
         if (res.data.success) {
-          this.good.imageUrl = res.data.imageUrl
+          this.temparticle.imageUrl = res.data.imageUrl
         }
       })
     }
-    // 這一塊還不熟
-  }
+  },
+  mixins: [modalMixin]
 }
 </script>

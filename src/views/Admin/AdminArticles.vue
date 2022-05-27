@@ -19,12 +19,12 @@
     <tr v-for="item in articles" :key="item.id">
       <td>{{ item.title }}</td>
       <td>{{ item.author }}</td>
-      <td>{{ item.create_at }}</td>
+      <td>{{ $filters.date(item.create_at) }}</td>
       <td>{{ item.description }}</td>
       <td>{{ item.tag }}</td>
       <td>
-        <span class="text-success" v-if="item.isPublic">啟用</span>
-        <span class="text-muted" v-else>未啟用</span>
+        <span class="text-success" v-if="item.isPublic">公開</span>
+        <span class="text-muted" v-else>不公開</span>
       </td>
       <td>
         <div class="btn-group">
@@ -36,89 +36,75 @@
   </tbody>
 </table>
 </main>
-<GoodsPagination :pages="pagination"  @emit-pages="getArticles"></GoodsPagination>
-<EditModal :goods="nowArticle" ref="editModal" @emit-update="updateGoods" ></EditModal>
-<DeleteModal :item="nowArticle" ref="delModal" @emit-del="DeleteGood" ></DeleteModal>
+<DelModal :item="temparticle" ref="delModal" @emit-del="updateDelete"></DelModal >
+<EditModal :article="temparticle" ref="editModal" @emit-update="updateArticle"></EditModal>
 </template>
 
 <script>
-import GoodsPagination from '../../components/Admin/GoodsPagination.vue'
+import DelModal from '../../components/Admin/DeleteModal.vue'
 import EditModal from '../../components/Admin/EditArticlesModal.vue'
-import DeleteModal from '../../components/Admin/DeleteModal.vue'
 export default {
   data () {
     return {
       articles: [],
-      pagination: {},
-      nowArticle: {},
+      temparticle: {},
       isNew: false
     }
   },
   methods: {
-    getArticles (page = 1) {
+    getProduct (page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/articles?page=${page}`
       this.$http.get(api).then((res) => {
-        if (res.data.success) {
-          this.articles = res.data.articles
-          this.pagination = res.data.pagination
-        }
+        this.articles = res.data.articles
       })
     },
-    openModal (isnew, item) {
-      if (isnew) {
-        this.nowArticle = {}
+    openModal (isNew, item) {
+      this.isNew = isNew
+      if (this.isNew) {
+        this.temparticle = {
+          create_at: new Date().getTime() / 1000
+        }
       } else {
-        this.nowArticle = { ...item }
-      }
-      this.isNew = isnew
-      const open = this.$refs.editModal
-      open.showModal()
-    },
-    updateGoods (coupon) {
-      this.nowArticle = { ...coupon }
-      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article`
-      let httpMethod = 'post'
-      // 上下是在調整api，預設是新增，用上方那個；如果不是新增而是調整，改用下方的
-      if (!this.isNew) {
-        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${coupon.id}`
-        httpMethod = 'put'
-      }
-      const open = this.$refs.editModal
-
-      this.$http[httpMethod](api, { data: this.nowArticle })
-        .then((res) => {
-          console.log(this.nowArticle)
-          console.log(res)
-          open.hideModal()
-          if (res.data.success) {
-            this.getArticles()
-            this.nowArticle = {}
-          }
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${item.id}`
+        this.$http.get(api).then((res) => {
+          this.temparticle = res.data.article
         })
+      }
+      this.$refs.editModal.showModal()
+    },
+    updateArticle (temparticle) {
+      if (this.isNew) {
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article`
+        this.$http.post(api, { data: temparticle }).then((res) => {
+          this.$refs.editModal.hideModal()
+          this.getProduct()
+        })
+      } else {
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${temparticle.id}`
+        this.$http.put(api, { data: temparticle }).then((res) => {
+          this.$refs.editModal.hideModal()
+          this.getProduct()
+        })
+      }
     },
     openDeleteModal (item) {
-      this.nowArticle = { ...item }
-      const delComponent = this.$refs.delModal
-      delComponent.showModal()
+      this.temparticle = item
+      this.$refs.delModal.showModal()
     },
-    DeleteGood () {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${this.nowArticle.id}`
+    updateDelete () {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${this.temparticle.id}`
       this.$http.delete(api).then((res) => {
-        const delComponent = this.$refs.delModal
-        delComponent.hideModal()
-        if (res.data.success) {
-          this.getArticles()
-        }
+        this.$refs.delModal.hideModal()
+        this.getProduct()
       })
     }
   },
   created () {
-    this.getArticles()
+    this.getProduct()
   },
   components: {
-    GoodsPagination,
     EditModal,
-    DeleteModal
+    DelModal
   }
 }
 </script>
