@@ -1,9 +1,9 @@
 <template>
 <div class="productView">
-    <a href="#">
+    <router-link to="/cart">
       <i class="bi bi-bag-heart"></i>
       <i v-if="cart.length !== 0" class="bi bi-suit-heart-fill"></i>
-    </a>
+    </router-link>
     <nav class="productList">
         <ul>
             <li>
