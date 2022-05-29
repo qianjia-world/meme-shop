@@ -26,4 +26,5 @@ git commit -m 'deploy'
 # 除此之外，也可以改走 HTTPS 模式
 git push -f https://github.com/qianjia-world/meme-shop.git master:gh-pages
 
+
 cd -
