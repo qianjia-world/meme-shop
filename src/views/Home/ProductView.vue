@@ -59,15 +59,12 @@ export default {
           break
         case '程式':
           this.temproducts = this.products.filter(item => item.category === '程式')
-          console.log(this.temproducts)
           break
         case '工作':
           this.temproducts = this.products.filter(item => item.category === '工作')
-          console.log(this.temproducts)
           break
         case '生活':
           this.temproducts = this.products.filter(item => item.category === '生活')
-          console.log(this.temproducts)
           break
       }
     },
@@ -77,7 +74,6 @@ export default {
     },
     addCart (item) {
       this.cart.push(item)
-      console.log(item)
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       this.$http.post(api, { data: { product_id: item.id, qty: 1 } }).then((res) => {
         this.$refs.productModal.hideModal()
