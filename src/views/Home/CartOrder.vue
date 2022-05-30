@@ -62,7 +62,7 @@
       </div>
     </div>
     <div class="text-end">
-      <button type="button" @click="getOrder" class="btn btn-danger">確認付款去</button>
+      <button type="button" @click="getOrder" class="btn btn-danger">建立訂單</button>
     </div>
   </form>
 </div>
@@ -86,7 +86,8 @@ export default {
     getOrder () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`
       this.$http.post(api, { data: { user: this.user, message: this.message } }).then((res) => {
-        this.$router.push('/pay')
+        const id = res.data.orderId
+        this.$router.push(`/pay/${id}`)
       })
     },
     getCart () {

@@ -22,7 +22,7 @@ const routes = [
         component: () => import('../views/Home/CartOrder.vue')
       },
       {
-        path: 'pay',
+        path: 'pay/:orderId',
         component: () => import('../views/Home/CartPay.vue')
       }
     ]
