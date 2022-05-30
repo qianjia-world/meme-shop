@@ -23,7 +23,7 @@ const routes = [
       },
       {
         path: 'pay',
-        component: () => import('../views/Home/CartOrder.vue')
+        component: () => import('../views/Home/CartPay.vue')
       }
     ]
   },
