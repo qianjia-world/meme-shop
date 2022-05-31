@@ -7,7 +7,7 @@
     <nav class="productList">
         <ul>
             <li>
-                <a href="#" @click.prevent="renderProducts('全部')">全部</a>
+                <a href="#" @click.prevent="renderProducts('全部')">所有類型</a>
             </li>
             <li>
                 <a href="#" @click.prevent="renderProducts('程式')">程式梗</a>
@@ -93,10 +93,10 @@ export default {
 .productView{
   position: relative;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: flex-start;
   background-color: rgb(73, 44, 5);
-  padding: 2% 0;
+  padding: 45px 15px;
   >a{
     color: antiquewhite;
     position: absolute;
@@ -120,13 +120,13 @@ export default {
     ul{
       display: flex;
       flex-direction: column;
-      align-items: center;
+      justify-content: center;
       li{
         width: 80%;
         border-radius: 10px;
         background-color:#492c05;
         padding: 20px;
-        margin: 15px;
+        margin: 20px;
         a{
           display: block;
           color: antiquewhite;
@@ -145,10 +145,10 @@ export default {
     .card{
       margin: 0.5% 0.5%;
       width: 19%;
-      height: 300px;
+      height: 400px;
       border: 1px solid #492c05;
       .card-img-top{
-        height: 70%;
+        height: 300px;
         border: 1px solid #492c05;
         background-position: center center;
         background-size: cover;
@@ -164,50 +164,6 @@ export default {
         a:hover{
           border: 1px solid #492c05;
         }
-      }
-    }
-  }
-  @media (max-width:1120px) {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 2% 0;
-    .productList{
-      width: 95%;
-      margin-bottom: 15px;
-      ul{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        li{
-          border-radius: 10px;
-          background-color:#492c05;
-          padding: 2%;
-          margin: 1%;
-        }
-      }
-    }
-    .products{
-    width: 95%;
-    padding: 1%;
-    .card{
-      margin: 0.5% 0.5%;
-      width: 24%;
-      height:250px ;
-    }
-    }
-  }
-  @media (max-width:700px) {
-    .products{
-      .card{
-        width: 49%;
-      }
-    }
-  }
-  @media (max-width:450px) {
-    .products{
-      .card{
-        width: 100%;
       }
     }
   }
