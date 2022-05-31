@@ -1,6 +1,6 @@
 <template>
 <div class="productView">
-    <router-link to="/cart">
+    <router-link to="/cart" class="cart">
       <i class="bi bi-bag-heart"></i>
       <i v-if="cart.length !== 0" class="bi bi-suit-heart-fill"></i>
     </router-link>
@@ -97,19 +97,22 @@ export default {
   align-items: flex-start;
   background-color: rgb(73, 44, 5);
   padding: 2% 0;
-  >a{
-    color: antiquewhite;
+  .cart{
+    color: rgb(73, 44, 5);
     position: absolute;
     font-size: 3rem;
-    bottom:60px;
+    background-color: antiquewhite;
+    border-radius: 50%;
+    bottom: 30px;
+    right: 20px;
+    z-index: 100;
     position: fixed;
-    left:40px;
     .bi-suit-heart-fill{
       color:rgb(218, 20, 20);
       font-size: 30px;
       position: absolute;
-      bottom:85px;
-      left:65px;
+      bottom: 32px;
+      right: 28px;
       position: fixed;
     }
   }

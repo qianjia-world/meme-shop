@@ -5,10 +5,10 @@
       <router-link to="/">工程師迷因</router-link>
     </li>
     <li>
-      <router-link to="/">Programming X Meme</router-link>
+      <router-link class="hide" to="/">Programming X Meme</router-link>
     </li>
     <li>
-      <router-link to="/login">小房間</router-link>
+      <router-link to="/login">後台登入</router-link>
     </li>
   </ul>
 </footer>
@@ -22,6 +22,17 @@
   padding: 22px 0px;
   li{
     margin: 0 20px;
+  }
+}
+@media (max-width:510px) {
+  .HomeFooter ul{
+    padding: 15px 0px;
+    li{
+      margin: 0 5px;
+    }
+  }
+  .hide{
+    display: none;
   }
 }
 </style>
