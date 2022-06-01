@@ -103,6 +103,8 @@ export default {
     font-size: 3rem;
     background-color: antiquewhite;
     border-radius: 50%;
+    padding: 3px;
+    border: 2px solid rgb(73, 44, 5);
     bottom: 30px;
     right: 20px;
     z-index: 100;

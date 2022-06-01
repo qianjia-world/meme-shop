@@ -1,14 +1,14 @@
 <template>
 <div class="table-responsive cartView">
   <h1>您的迷因清單</h1>
-  <table class="table table-light table-hover">
+  <table v-if="carts.length !== 0" class="table table-light table-hover">
     <thead>
-      <tr>
+      <tr class="list">
         <th scope="col">圖片</th>
-        <th scope="col">內容</th>
-        <th scope="col">單位</th>
-        <th scope="col">原價</th>
-        <th scope="col">特價</th>
+        <th scope="col">標題</th>
+        <th scope="col" class="hide">單位</th>
+        <th scope="col" class="hide">原價</th>
+        <th scope="col" class="hide">特價</th>
         <th scope="col">數量</th>
         <th scope="col">總價</th>
         <th scope="col" class="text-center">刪除</th>
@@ -16,13 +16,13 @@
     </thead>
     <tbody>
       <tr v-for="(item, key) in carts" :key="key">
-        <td class="img">
+        <td class="img align-middle">
           <div class="image" :style="{backgroundImage:'url('+item.product.imageUrl+')'}"></div>
         </td>
         <td class="align-middle">{{item.product.title}}</td>
-        <td class="align-middle">{{item.product.unit}}</td>
-        <td class="align-middle">{{item.product.origin_price}}</td>
-        <td class="align-middle">{{item.product.price}}</td>
+        <td class="align-middle hide">{{item.product.unit}}</td>
+        <td class="align-middle hide">{{item.product.origin_price}}</td>
+        <td class="align-middle hide">{{item.product.price}}</td>
         <td class="align-middle">
           <input type="number" @change="updateCart(item)" v-model="item.qty"></td>
         <td class="align-middle">{{item.final_total}}</td>
@@ -37,9 +37,9 @@
     <tr>
       <td class="align-middle">總計</td>
       <td class="align-middle"></td>
-      <td class="align-middle"></td>
-      <td class="align-middle">{{ add ('origin_price', 'product') }}</td>
-      <td class="align-middle">{{ add ('price', 'product') }}</td>
+      <td class="align-middle hide"></td>
+      <td class="align-middle hide">{{ add ('origin_price', 'product') }}</td>
+      <td class="align-middle hide">{{ add ('price', 'product') }}</td>
       <td class="align-middle">{{ add ('qty') }}</td>
       <td class="align-middle">{{ add ('final_total') }}</td>
       <td class="align-middle text-center">
@@ -50,7 +50,10 @@
     </tr>
     </tfoot>
   </table>
-
+  <div v-else class="noCart">
+    <h2>您的清單還是空的，再去看看吧!</h2>
+    <img src="../../../src/assets/yaa.webp" alt="">
+  </div>
 </div>
 </template>
 
@@ -103,7 +106,8 @@ export default {
 <style lang="scss">
 .cartView{
   background-color: #492c05;
-  padding-bottom: 30px;
+  min-height: 921px;
+  padding: 20px;
   h1{
     text-align:center;
     font-size: 2rem;
@@ -111,12 +115,21 @@ export default {
     padding: 30px 0;
   }
   .table{
-    width: 60%;
+    width: 95%;
     margin: 0 auto;
+    .list th{
+      white-space:nowrap;
+    }
+    .align-middle{
+      width: 9%;
+      input{
+        width: 100%;
+      }
+    }
     .img{
-      width: 20%;
+      width: 30%;
       .image{
-      height: 60px;
+      height: 200px;
       border: 1px solid #492c05;
       background-position: center center;
       background-size: cover;
@@ -129,6 +142,53 @@ export default {
     .pay{
       font-size: 45px;
       color: #492c05;
+    }
+  }
+  .noCart{
+    width: 90%;
+    margin: 0 auto;
+    background-color: antiquewhite;
+    padding: 3%;
+    outline: 2px solid #492c05;
+    outline-offset: -10px;
+    h2{
+      font-size: 30px;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #492c05;;
+    }
+    img{
+      display: block;
+      height: auto;
+      margin: 0 auto;
+      background-position: center center;
+      width: 75%;
+    }
+  }
+  @media (max-width:655px) {
+    .table{
+      .hide{
+        display: none;
+      }
+      .align-middle{
+        width: 10%;
+      }
+      .img{
+        width: 50%;
+      }
+    }
+  }
+    @media (max-width:485px) {
+    .table{
+      min-height: 700px;
+      .align-middle{
+        width: 12%;
+      }
+      .img{
+        width: 12%;
+        .image{
+        height: 80px;}
+      }
     }
   }
 }
