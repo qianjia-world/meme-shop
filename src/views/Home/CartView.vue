@@ -106,8 +106,12 @@ export default {
 <style lang="scss">
 .cartView{
   background-color: #492c05;
-  min-height: 921px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 136px);
+  padding: 2%;
   h1{
     text-align:center;
     font-size: 2rem;
@@ -178,9 +182,8 @@ export default {
       }
     }
   }
-    @media (max-width:485px) {
+  @media (max-width:485px) {
     .table{
-      min-height: 700px;
       .align-middle{
         width: 12%;
       }
@@ -190,6 +193,9 @@ export default {
         height: 80px;}
       }
     }
+  }
+  @media (max-width:510px) {
+    min-height: calc(100vh - 102px);
   }
 }
 </style>

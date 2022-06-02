@@ -1,11 +1,12 @@
 <template>
-<div class="my-5 row justify-content-center">
+<div class="justify-content-center cartOrder">
+  <h1>請填寫您的訂單資料</h1>
   <form class="col-md-6">
     <table class="table align-middle">
       <thead>
-      <th>品名</th>
-      <th>數量/單位</th>
-      <th>單價</th>
+        <th>品名</th>
+        <th>數量/單位</th>
+        <th>單價</th>
       </thead>
       <tbody>
         <tr v-for="item in data.carts" :key="item.id">
@@ -22,7 +23,7 @@
       </tfoot>
     </table>
 
-    <div class="row g-3">
+    <div class="row g-3 order">
       <div class="col-md-6">
         <label for="UserName" class="form-label">姓名</label>
         <input type="text" class="form-control" id="UserName" placeholder="請輸入姓名" v-model="user.name">
@@ -59,10 +60,10 @@
             我已詳閱購買說明
           </label>
         </div>
+        <div class="text-end">
+          <button type="button" @click="getOrder" class="btn btn-danger">建立訂單</button>
+        </div>
       </div>
-    </div>
-    <div class="text-end">
-      <button type="button" @click="getOrder" class="btn btn-danger">建立訂單</button>
     </div>
   </form>
 </div>
@@ -102,3 +103,34 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.cartOrder{
+  background: rgb(73, 44, 5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: calc(100vh - 136px);
+  padding: 1%;
+  h1{
+    text-align: center;
+    color: antiquewhite;
+    font-size: 2rem;
+    padding-bottom: 3%;
+  }
+  form{
+    width: 90%;
+    padding: 3% 3%;
+    background: antiquewhite;
+  }
+  .order{
+    padding: 3%;
+    outline: 1px dashed #492c05;
+    outline-offset: -10px;
+  }
+  @media (max-width:510px) {
+    min-height: calc(100vh - 102px);
+  }
+}
+</style>

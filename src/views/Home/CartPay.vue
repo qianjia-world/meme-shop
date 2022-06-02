@@ -1,5 +1,6 @@
 <template>
-<div class="my-5 row justify-content-center">
+<div class="justify-content-center cartPay" >
+  <h1>確認無誤即可付款，我們將盡快為您出貨</h1>
   <form class="col-md-6">
     <table class="table align-middle">
       <thead>
@@ -94,3 +95,31 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.cartPay{
+  background: rgb(73, 44, 5);
+  padding: 0 0 2% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 136px);
+  h1{
+    text-align: center;
+    color: antiquewhite;
+    font-size: 30px;
+    padding-bottom: 10%;
+  }
+  form{
+    width: 90%;
+    padding: 3% 3%;
+    background: antiquewhite;
+    outline: 1px dashed #492c05;
+    outline-offset: -10px;
+  }
+  @media (max-width:510px) {
+    min-height: calc(100vh - 102px);
+  }
+}
+</style>

@@ -107,6 +107,9 @@ export default {
             justify-self: end;
             .table{
             margin: 20px 20px;
+            background:#492c05;
+            color: antiquewhite;
+            border-radius: 5px;
             }
           }
         }

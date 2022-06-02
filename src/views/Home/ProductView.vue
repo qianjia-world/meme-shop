@@ -52,6 +52,12 @@ export default {
         this.renderProducts('全部')
       })
     },
+    getCart () {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
+      this.$http.get(api).then((res) => {
+        this.cart = res.data.data.carts
+      })
+    },
     renderProducts (category) {
       switch (category) {
         case '全部':
@@ -82,6 +88,7 @@ export default {
   },
   created () {
     this.getProducts()
+    this.getCart()
   },
   components: {
     ProductModal
@@ -97,6 +104,7 @@ export default {
   align-items: flex-start;
   background-color: rgb(73, 44, 5);
   padding: 2% 0;
+  min-height: calc(100vh - 136px);
   .cart{
     color: rgb(73, 44, 5);
     position: absolute;
@@ -113,8 +121,8 @@ export default {
       color:rgb(218, 20, 20);
       font-size: 30px;
       position: absolute;
-      bottom: 32px;
-      right: 28px;
+      bottom: 36px;
+      right: 33px;
       position: fixed;
     }
   }
