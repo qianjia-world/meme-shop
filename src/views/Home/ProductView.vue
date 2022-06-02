@@ -25,22 +25,22 @@
         <div class="card-img-top" :style="{backgroundImage:'url('+item.imageUrl+')'}"></div>
         <div class="card-body">
           <h2 class="card-title">{{item.title}}</h2>
-          <a href="#" @click.prevent="getTempProduct(item)" class="btn">了解更多</a>
+          <router-link :to="`/product/${item.id}`" class="btn">了解更多</router-link>
+          <a href="#" class="productCart" @click.prevent="addCart(item)">
+            <i class="bi bi-bag-heart"></i>
+          </a>
         </div>
       </div>
     </div>
 </div>
-<ProductModal :item="temproduct" ref="productModal" @emit-cart="addCart"></ProductModal>
 </template>
 
 <script>
-import ProductModal from '../../components/Home/HomeProductModal.vue'
 export default {
   data () {
     return {
       products: [], // 這放api拿回來的
       temproducts: [], // 這放種類篩選後的結果，拿來印出列表的
-      temproduct: {}, // 這放要傳入modal的
       cart: []
     }
   },
@@ -74,24 +74,17 @@ export default {
           break
       }
     },
-    getTempProduct (item) {
-      this.temproduct = item
-      this.$refs.productModal.showModal()
-    },
     addCart (item) {
-      this.cart.push(item)
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       this.$http.post(api, { data: { product_id: item.id, qty: 1 } }).then((res) => {
-        this.$refs.productModal.hideModal()
+        this.cart.push(item)
+        console.log(item)
       })
     }
   },
   created () {
     this.getProducts()
     this.getCart()
-  },
-  components: {
-    ProductModal
   }
 }
 </script>
@@ -169,13 +162,26 @@ export default {
       .card-body{
         font-weight: bold;
         text-align: center;
+        position: relative;
         color: #492c05;
-        a{
+        .btn{
           background: antiquewhite;
           color: #492c05;
         }
-        a:hover{
+        .btn:hover{
           border: 1px solid #492c05;
+        }
+        .productCart{
+          position: absolute;
+          font-size: 35px;
+          left: 10px;
+          color: #492c05;
+        }
+        .productCart:hover{
+          color: brown;
+        }
+        .red{
+          color: brown;
         }
       }
     }

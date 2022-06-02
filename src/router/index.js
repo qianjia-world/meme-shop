@@ -24,6 +24,10 @@ const routes = [
       {
         path: 'pay/:orderId',
         component: () => import('../views/Home/CartPay.vue')
+      },
+      {
+        path: 'product/:productId',
+        component: () => import('../views/Home/ProductId.vue')
       }
     ]
   },
