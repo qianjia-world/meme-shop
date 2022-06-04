@@ -28,3 +28,4 @@ git push -f https://github.com/qianjia-world/meme-shop.git master:gh-pages
 
 
 cd -
+# sh deploy.sh
