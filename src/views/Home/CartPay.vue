@@ -42,16 +42,16 @@
         <td>{{ order.user.address ?  order.user.address : ''}}</td>
       </tr>
       <tr>
-        <th>{{order.is_paid }}</th>
+        <th>是否付款</th>
         <td>
-          <span>尚未付款</span>
-          <span class="text-success">付款完成</span>
+          <span v-if="order.is_paid" class="text-success">付款完成</span>
+          <span v-else>尚未付款</span>
         </td>
       </tr>
       </tbody>
     </table>
     <div class="text-end">
-      <button class="btn btn-danger" @click="payMoney()">確認付款去</button>
+      <button class="btn btn-danger" @click.prevent="payMoney()">確認付款去</button>
     </div>
   </form>
 </div>

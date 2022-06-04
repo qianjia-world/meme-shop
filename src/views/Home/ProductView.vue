@@ -191,9 +191,9 @@ export default {
         >.bi-suit-heart-fill{
           position: absolute;
           color: red;
-          font-size: 25px;
-          left: 15px;
-          bottom: 16px;
+          font-size: 23px;
+          left: 16px;
+          bottom: 18px;
         }
       }
     }

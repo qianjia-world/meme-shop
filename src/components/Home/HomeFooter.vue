@@ -2,10 +2,7 @@
 <footer class="HomeFooter">
   <ul>
     <li>
-      <router-link to="/">工程師迷因</router-link>
-    </li>
-    <li>
-      <router-link class="hide" to="/">Programming X Meme</router-link>
+      <router-link to="/">Programming X Meme</router-link>
     </li>
     <li>
       <router-link to="/login">後台登入</router-link>
@@ -30,9 +27,6 @@
     li{
       margin: 0 5px;
     }
-  }
-  .hide{
-    display: none;
   }
 }
 </style>
