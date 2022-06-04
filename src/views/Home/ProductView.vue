@@ -29,6 +29,7 @@
           <a href="#" class="productCart" @click.prevent="addCart(item)">
             <i class="bi bi-bag-heart"></i>
           </a>
+          <i v-if="findTitle(item.title)" class="bi bi-suit-heart-fill"></i>
         </div>
       </div>
     </div>
@@ -78,8 +79,15 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       this.$http.post(api, { data: { product_id: item.id, qty: 1 } }).then((res) => {
         this.cart.push(item)
-        console.log(item)
       })
+    },
+    findTitle (title) {
+      const find = this.cart.find(cart => cart.product.title === title)
+      if (find) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   created () {
@@ -180,8 +188,12 @@ export default {
         .productCart:hover{
           color: brown;
         }
-        .red{
-          color: brown;
+        >.bi-suit-heart-fill{
+          position: absolute;
+          color: red;
+          font-size: 25px;
+          left: 15px;
+          bottom: 16px;
         }
       }
     }
