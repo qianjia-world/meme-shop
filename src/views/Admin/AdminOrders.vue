@@ -50,55 +50,15 @@ export default {
           console.log(this.orders)
         }
       })
-    },
-    openModal (isnew, item) {
-      if (isnew) {
-        this.nowgood = {}
-      } else {
-        this.nowgood = { ...item }
-      }
-      this.isNew = isnew
-      const open = this.$refs.editModal
-      open.showModal()
-    },
-    updateGoods (good) {
-      this.nowgood = good
-      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`
-      let httpMethod = 'post'
-      // 上下是在調整api，預設是新增，用上方那個；如果不是新增而是調整，改用下方的
-      if (!this.isNew) {
-        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${good.id}`
-        httpMethod = 'put'
-      }
-      const open = this.$refs.editModal
-
-      this.$http[httpMethod](api, { data: this.nowgood })
-        .then((res) => {
-          open.hideModal()
-          if (res.data.success) {
-            this.getGoods()
-          }
-        })
-    },
-    openDeleteModal (item) {
-      this.nowgood = { ...item }
-      const delComponent = this.$refs.delModal
-      delComponent.showModal()
-    },
-    DeleteGood () {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.nowgood.id}`
-      this.$http.delete(api).then((res) => {
-        const delComponent = this.$refs.delModal
-        delComponent.hideModal()
-        if (res.data.success) {
-          this.getGoods()
-        }
-      })
     }
-
+    // delOrder () {
+    //   const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders/all`
+    //   this.$http.delete(api)
+    // }
   },
   created () {
     this.getOrders()
+    // this.delOrder()
   }
 }
 </script>
