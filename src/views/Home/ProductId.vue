@@ -23,7 +23,7 @@
             <p>{{ product.unit }}</p>
           </li>
         </ul>
-        <router-link to="/" class="btn">加入購物車</router-link>
+        <a href="" class="btn" @click.prevent="addCart()">加入購物車</a>
       </div>
     </div>
   </div>
@@ -42,7 +42,13 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.productId}`
       this.$http.get(api).then((res) => {
         this.product = res.data.product
-        console.log(this.product)
+      })
+    },
+    addCart () {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
+      this.$http.post(api, { data: { product_id: this.productId, qty: 1 } }).then((res) => {
+        console.log('ok')
+        this.$router.push('/')
       })
     }
   },
